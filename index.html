@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Ashish Gartan — Software Developer & IT Trainer</title>
+<title>Ashish Gartan — Software Developer & AI Engineer</title>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <style>
 :root {
@@ -18,6 +18,7 @@
   --accent3: #7dd3fc;
   --green: #22c55e;
   --amber: #f59e0b;
+  --purple: #8b5cf6;
   --card: #ffffff;
   --border: #e4e4e7;
   --tag-bg: #f0f9ff;
@@ -39,6 +40,7 @@
   --accent3: #bae6fd;
   --green: #4ade80;
   --amber: #fbbf24;
+  --purple: #c084fc;
   --card: #111113;
   --border: #27272a;
   --tag-bg: #0c2233;
@@ -248,6 +250,55 @@ h1.hero-name .last { color: var(--accent); font-weight: 300; }
 [data-theme="dark"] .tag.amber { color: #fbbf24; }
 .tag.purple { background: rgba(139,92,246,0.08); color: #7c3aed; border-color: rgba(139,92,246,0.2); }
 [data-theme="dark"] .tag.purple { color: #c084fc; }
+.tag.ai { background: rgba(14,165,233,0.10); color: #0369a1; border-color: rgba(14,165,233,0.25); }
+[data-theme="dark"] .tag.ai { color: #7dd3fc; background: rgba(14,165,233,0.08); }
+
+/* ── AI SECTION SPECIAL STYLING ── */
+#ai-skills { background: var(--bg); }
+.ai-hero-banner {
+  background: linear-gradient(135deg, rgba(14,165,233,0.06) 0%, rgba(139,92,246,0.06) 100%);
+  border: 1px solid rgba(14,165,233,0.15);
+  border-radius: 16px; padding: 24px 28px; margin-bottom: 36px;
+  display: flex; align-items: center; gap: 16px;
+}
+.ai-banner-icon { font-size: 32px; flex-shrink: 0; }
+.ai-banner-text h3 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+.ai-banner-text p { font-size: 13px; color: var(--text2); line-height: 1.6; }
+.ai-level-badge {
+  font-family: var(--mono); font-size: 10px; font-weight: 500;
+  padding: 3px 10px; border-radius: 20px;
+  background: rgba(14,165,233,0.1); color: var(--accent);
+  border: 1px solid rgba(14,165,233,0.2);
+  white-space: nowrap; flex-shrink: 0;
+}
+.ai-pillars { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 16px; }
+.ai-pillar {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 14px; padding: 22px;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  position: relative; overflow: hidden;
+}
+.ai-pillar::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+}
+.ai-pillar.foundations::before { background: linear-gradient(90deg, #38bdf8, #7dd3fc); }
+.ai-pillar.engineering::before { background: linear-gradient(90deg, #8b5cf6, #c084fc); }
+.ai-pillar.infra::before { background: linear-gradient(90deg, #22c55e, #4ade80); }
+.ai-pillar.product::before { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+.ai-pillar:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); border-color: rgba(14,165,233,0.3); }
+.ap-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.ap-icon {
+  width: 36px; height: 36px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center; font-size: 17px;
+}
+.ai-pillar.foundations .ap-icon { background: rgba(56,189,248,0.1); }
+.ai-pillar.engineering .ap-icon { background: rgba(139,92,246,0.1); }
+.ai-pillar.infra .ap-icon { background: rgba(34,197,94,0.1); }
+.ai-pillar.product .ap-icon { background: rgba(245,158,11,0.1); }
+.ap-title { font-size: 13px; font-weight: 700; color: var(--text); }
+.ap-subtitle { font-size: 11px; color: var(--text3); font-family: var(--mono); margin-bottom: 14px; }
+.ap-tags { display: flex; flex-wrap: wrap; gap: 5px; }
 
 /* ── PROJECTS ── */
 #projects { background: var(--bg); }
@@ -378,6 +429,7 @@ footer {
   .hero-right { display:none; }
   .nav-links a { display:none; }
   #about,#experience,#contact { margin:0; border-radius:0; }
+  .ai-hero-banner { flex-direction: column; align-items: flex-start; }
 }
 </style>
 </head>
@@ -388,6 +440,7 @@ footer {
   <div class="nav-links">
     <a href="#about">About</a>
     <a href="#skills">Skills</a>
+    <a href="#ai-skills">AI</a>
     <a href="#projects">Projects</a>
     <a href="#experience">Experience</a>
     <a href="#education">Education</a>
@@ -409,8 +462,8 @@ footer {
         <div class="first">Ashish</div>
         <div class="last">Gartan</div>
       </h1>
-      <p class="hero-title">Software Developer <span>& IT Trainer</span></p>
-      <p class="hero-bio">Passionate developer with strong foundations in DSA, Java, C++, and full-stack web development. Building scalable backend systems and teaching the next generation of engineers at CodeQuotient.</p>
+      <p class="hero-title">Software Developer <span>& AI Engineer</span></p>
+      <p class="hero-bio">Passionate developer with strong foundations in DSA, Java, C++, full-stack web development, and AI/LLM engineering. Building scalable systems and teaching the next generation of engineers at CodeQuotient.</p>
       <div class="hero-btns">
         <a href="#projects" class="btn-primary">View projects</a>
         <a href="#contact" class="btn-ghost">Get in touch</a>
@@ -431,13 +484,13 @@ footer {
       <div class="hero-card">
         <div class="hc-line"><span class="hc-num">1</span><span class="hc-kw">const</span>&nbsp;<span class="hc-fn">developer</span>&nbsp;<span class="hc-op">=</span>&nbsp;<span class="hc-bracket">{</span></div>
         <div class="hc-line"><span class="hc-num">2</span>&nbsp;&nbsp;<span class="hc-fn">name</span>:&nbsp;<span class="hc-str">"Ashish Gartan"</span>,</div>
-        <div class="hc-line"><span class="hc-num">3</span>&nbsp;&nbsp;<span class="hc-fn">role</span>:&nbsp;<span class="hc-str">"Software Developer"</span>,</div>
+        <div class="hc-line"><span class="hc-num">3</span>&nbsp;&nbsp;<span class="hc-fn">role</span>:&nbsp;<span class="hc-str">"Software Dev & AI Eng"</span>,</div>
         <div class="hc-line"><span class="hc-num">4</span>&nbsp;&nbsp;<span class="hc-fn">languages</span>:&nbsp;<span class="hc-bracket">[</span></div>
         <div class="hc-line"><span class="hc-num">5</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="hc-str">"Java"</span>, <span class="hc-str">"C++"</span>, <span class="hc-str">"C"</span>,</div>
         <div class="hc-line"><span class="hc-num">6</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="hc-str">"JavaScript"</span>, <span class="hc-str">"TypeScript"</span></div>
         <div class="hc-line"><span class="hc-num">7</span>&nbsp;&nbsp;<span class="hc-bracket">]</span>,</div>
-        <div class="hc-line"><span class="hc-num">8</span>&nbsp;&nbsp;<span class="hc-fn">cgpa</span>:&nbsp;<span class="hc-op">8.35</span>,</div>
-        <div class="hc-line"><span class="hc-num">9</span>&nbsp;&nbsp;<span class="hc-fn">passion</span>:&nbsp;<span class="hc-str">"DSA + Systems"</span>,</div>
+        <div class="hc-line"><span class="hc-num">8</span>&nbsp;&nbsp;<span class="hc-fn">ai</span>:&nbsp;<span class="hc-bracket">[</span><span class="hc-str">"LLMs"</span>, <span class="hc-str">"RAG"</span>, <span class="hc-str">"Agents"</span><span class="hc-bracket">]</span>,</div>
+        <div class="hc-line"><span class="hc-num">9</span>&nbsp;&nbsp;<span class="hc-fn">cgpa</span>:&nbsp;<span class="hc-op">8.35</span>,</div>
         <div class="hc-line"><span class="hc-num">10</span>&nbsp;&nbsp;<span class="hc-fn">available</span>:&nbsp;<span class="hc-kw">true</span></div>
         <div class="hc-line"><span class="hc-num">11</span><span class="hc-bracket">}</span><span class="hc-cmt">; // hire me!</span></div>
       </div>
@@ -456,19 +509,19 @@ footer {
       <div class="about-meta">
         <div class="meta-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>MCA — Kurukshetra University</div>
         <div class="meta-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Haryana, India</div>
-        <div class="meta-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07"/><path d="M22 16.92v3"/></svg>+91 9996247951</div>
+        <div class="meta-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07"/></svg>+91 9996247951</div>
       </div>
     </div>
     <div class="about-body">
       <p class="s-label reveal">About me</p>
       <h2 class="s-title reveal">Building systems, teaching developers</h2>
-      <p class="reveal">Hi, I'm Ashish — a software developer and IT Trainer at CodeQuotient, Mohali. I have strong foundations in Data Structures & Algorithms, system-level programming, and full-stack web development.</p>
-      <p class="reveal">My work spans from building multi-threaded C++ systems with socket programming to full-stack JavaScript apps. I also mentor students in real-world coding, backend development, and interview prep — which keeps me sharp.</p>
-      <p class="reveal">I'm currently looking for software development roles where I can build impactful, scalable systems and keep growing.</p>
+      <p class="reveal">Hi, I'm Ashish — a software developer, AI engineer, and IT Trainer at CodeQuotient, Mohali. I have strong foundations in Data Structures & Algorithms, system-level programming, full-stack web development, and LLM engineering.</p>
+      <p class="reveal">My work spans from building multi-threaded C++ systems with socket programming, to full-stack JavaScript apps, to AI-powered tools using RAG pipelines, vector databases, and LLM APIs. I also mentor students in real-world coding, backend development, and interview prep.</p>
+      <p class="reveal">I'm currently looking for software development or AI engineering roles where I can build impactful, scalable systems and keep growing.</p>
       <div class="about-stats reveal">
         <div class="stat-box"><div class="stat-n">8.35</div><div class="stat-l">MCA CGPA</div></div>
         <div class="stat-box"><div class="stat-n">3+</div><div class="stat-l">Years at CodeQuotient</div></div>
-        <div class="stat-box"><div class="stat-n">3</div><div class="stat-l">Projects on GitHub</div></div>
+        <div class="stat-box"><div class="stat-n">5+</div><div class="stat-l">Projects Built</div></div>
       </div>
     </div>
   </div>
@@ -490,7 +543,7 @@ footer {
       <div class="sg-head"><div class="sg-icon">🌐</div><div class="sg-name">Frontend</div></div>
       <div class="sg-tags">
         <span class="tag">HTML5</span><span class="tag">CSS3</span>
-        <span class="tag">React.js</span><span class="tag">Charts.js</span>
+        <span class="tag">React.js</span><span class="tag">Next.js</span><span class="tag">Charts.js</span>
       </div>
     </div>
     <div class="skill-group reveal">
@@ -504,7 +557,7 @@ footer {
       <div class="sg-head"><div class="sg-icon">🗄️</div><div class="sg-name">Databases</div></div>
       <div class="sg-tags">
         <span class="tag amber">SQL</span><span class="tag amber">MongoDB</span>
-        <span class="tag amber">SQLite</span>
+        <span class="tag amber">SQLite</span><span class="tag amber">Vector DBs</span>
       </div>
     </div>
     <div class="skill-group reveal">
@@ -520,6 +573,104 @@ footer {
       <div class="sg-tags">
         <span class="tag">IntelliJ IDEA</span><span class="tag">VS Code</span>
         <span class="tag">Postman</span><span class="tag">Linux/Unix</span><span class="tag">Git</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI SKILLS — NEW SECTION -->
+<section id="ai-skills">
+  <p class="s-label reveal">Emerging expertise</p>
+  <h2 class="s-title reveal">AI & LLM Engineering</h2>
+
+  <div class="ai-hero-banner reveal">
+    <div class="ai-banner-icon">🧠</div>
+    <div class="ai-banner-text">
+      <h3>Early AI Engineer — beyond beginner, not yet senior</h3>
+      <p>I understand how LLMs work internally — transformers, attention, embeddings, RLHF — and I build systems on top of them using RAG pipelines, vector databases, agents, and local models. I think like an AI product builder, not just a user.</p>
+    </div>
+    <div class="ai-level-badge">Early AI Engineer</div>
+  </div>
+
+  <div class="ai-pillars">
+    <div class="ai-pillar foundations reveal">
+      <div class="ap-header">
+        <div class="ap-icon">⚙️</div>
+        <div>
+          <div class="ap-title">LLM Foundations</div>
+          <div class="ap-subtitle">How models actually work</div>
+        </div>
+      </div>
+      <div class="ap-tags">
+        <span class="tag ai">Transformers</span>
+        <span class="tag ai">Self-Attention</span>
+        <span class="tag ai">Tokenization</span>
+        <span class="tag ai">Embeddings</span>
+        <span class="tag ai">Positional Encoding</span>
+        <span class="tag ai">Pretraining</span>
+        <span class="tag ai">SFT</span>
+        <span class="tag ai">RLHF</span>
+        <span class="tag ai">Scaling Laws</span>
+        <span class="tag ai">Context Windows</span>
+        <span class="tag ai">Inference & Decoding</span>
+      </div>
+    </div>
+
+    <div class="ai-pillar engineering reveal">
+      <div class="ap-header">
+        <div class="ap-icon">🔗</div>
+        <div>
+          <div class="ap-title">LLM Engineering</div>
+          <div class="ap-subtitle">Building systems with LLMs</div>
+        </div>
+      </div>
+      <div class="ap-tags">
+        <span class="tag purple">RAG Pipelines</span>
+        <span class="tag purple">LangChain</span>
+        <span class="tag purple">AI Agents</span>
+        <span class="tag purple">Tool Use</span>
+        <span class="tag purple">Prompt Engineering</span>
+        <span class="tag purple">Vector Search</span>
+        <span class="tag purple">Chroma DB</span>
+        <span class="tag purple">MongoDB Vector</span>
+        <span class="tag purple">Claude API</span>
+        <span class="tag purple">OpenAI API</span>
+      </div>
+    </div>
+
+    <div class="ai-pillar infra reveal">
+      <div class="ap-header">
+        <div class="ap-icon">🖥️</div>
+        <div>
+          <div class="ap-title">Local AI & Infra</div>
+          <div class="ap-subtitle">Running models locally</div>
+        </div>
+      </div>
+      <div class="ap-tags">
+        <span class="tag green">LM Studio</span>
+        <span class="tag green">Local LLMs</span>
+        <span class="tag green">Qwen Models</span>
+        <span class="tag green">Local Embeddings</span>
+        <span class="tag green">Ollama</span>
+        <span class="tag green">Model Quantization</span>
+      </div>
+    </div>
+
+    <div class="ai-pillar product reveal">
+      <div class="ap-header">
+        <div class="ap-icon">🚀</div>
+        <div>
+          <div class="ap-title">AI Product Building</div>
+          <div class="ap-subtitle">Full-stack AI apps</div>
+        </div>
+      </div>
+      <div class="ap-tags">
+        <span class="tag amber">AI SaaS Architecture</span>
+        <span class="tag amber">Document Analysis</span>
+        <span class="tag amber">Dependency Graphs</span>
+        <span class="tag amber">Chrome Extensions</span>
+        <span class="tag amber">Microservices + AI</span>
+        <span class="tag amber">Next.js + LLMs</span>
       </div>
     </div>
   </div>
@@ -610,7 +761,7 @@ footer {
       </div>
     </div>
     <div class="project-card reveal">
-      <div class="pc-num">05 / Dev Tool</div>
+      <div class="pc-num">05 / Dev Tool · D3.js</div>
       <div class="pc-title">DepGraph</div>
       <p class="pc-desc">Upload any project ZIP or folder and instantly visualize all file dependencies as an interactive graph — 5 view modes, 40+ languages.</p>
       <ul class="pc-bullets">
@@ -710,7 +861,7 @@ footer {
     <div>
       <p class="s-label reveal">Contact</p>
       <h2 class="s-title reveal">Let's connect</h2>
-      <p class="reveal" style="font-size:14px;color:var(--text2);margin-bottom:4px">Open to software development roles, collaborations, or just a chat about systems and code.</p>
+      <p class="reveal" style="font-size:14px;color:var(--text2);margin-bottom:4px">Open to software development and AI engineering roles, collaborations, or just a chat about systems and code.</p>
       <div class="contact-links reveal">
         <a href="mailto:ashishgartan25@gmail.com" class="c-link">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
@@ -744,7 +895,7 @@ footer {
 </section>
 
 <footer>
-  <p>© 2025 Ashish Gartan · Software Developer & IT Trainer · Karnal, Haryana</p>
+  <p>© 2025 Ashish Gartan · Software Developer & AI Engineer · Karnal, Haryana</p>
 </footer>
 
 <script>
