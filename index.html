@@ -70,6 +70,7 @@ nav {
 .nav-logo {
   font-family: var(--mono); font-size: 14px; font-weight: 500;
   color: var(--accent); text-decoration: none; letter-spacing: 0;
+  flex-shrink: 0;
 }
 .nav-logo span { color: var(--text3); }
 .nav-links { display: flex; align-items: center; gap: 28px; }
@@ -79,10 +80,43 @@ nav {
   width: 36px; height: 36px; border-radius: 8px;
   border: 1px solid var(--border); background: var(--card);
   cursor: pointer; display: flex; align-items: center; justify-content: center;
-  color: var(--text2); transition: all 0.2s;
+  color: var(--text2); transition: all 0.2s; flex-shrink: 0;
 }
 .theme-btn:hover { border-color: var(--accent); color: var(--accent); }
 .theme-btn svg { width: 15px; height: 15px; }
+
+/* Hamburger */
+.hamburger {
+  display: none; flex-direction: column; gap: 5px;
+  width: 36px; height: 36px; border-radius: 8px;
+  border: 1px solid var(--border); background: var(--card);
+  cursor: pointer; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.hamburger span {
+  width: 16px; height: 1.5px; background: var(--text2);
+  border-radius: 2px; transition: all 0.25s;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* Mobile menu */
+.mobile-nav {
+  display: none; position: fixed;
+  top: 60px; left: 0; right: 0;
+  background: var(--bg2); border-bottom: 1px solid var(--border);
+  padding: 12px 5vw; z-index: 99;
+  flex-direction: column; gap: 2px;
+  box-shadow: var(--shadow);
+}
+.mobile-nav.open { display: flex; }
+.mobile-nav a {
+  font-size: 14px; color: var(--text2); text-decoration: none;
+  padding: 10px 12px; border-radius: 8px; transition: all 0.15s;
+}
+.mobile-nav a:hover { color: var(--text); background: var(--bg3); }
+.mobile-nav-divider { height: 1px; background: var(--border); margin: 6px 0; }
 
 /* ── SECTIONS ── */
 section { padding: 96px 5vw; }
@@ -164,7 +198,7 @@ h1.hero-name .last { color: var(--accent); font-weight: 300; }
   box-shadow: var(--shadow);
   font-family: var(--mono); font-size: 12px;
 }
-.hc-line { display: flex; gap: 8px; margin-bottom: 6px; line-height: 1.5; }
+.hc-line { display: flex; gap: 8px; margin-bottom: 6px; line-height: 1.5; flex-wrap: wrap; }
 .hc-num { color: var(--text3); min-width: 20px; text-align: right; user-select: none; }
 .hc-kw { color: #c678dd; }
 .hc-fn { color: #61afef; }
@@ -253,7 +287,7 @@ h1.hero-name .last { color: var(--accent); font-weight: 300; }
 .tag.ai { background: rgba(14,165,233,0.10); color: #0369a1; border-color: rgba(14,165,233,0.25); }
 [data-theme="dark"] .tag.ai { color: #7dd3fc; background: rgba(14,165,233,0.08); }
 
-/* ── AI SECTION SPECIAL STYLING ── */
+/* ── AI SECTION ── */
 #ai-skills { background: var(--bg); }
 .ai-hero-banner {
   background: linear-gradient(135deg, rgba(14,165,233,0.06) 0%, rgba(139,92,246,0.06) 100%);
@@ -333,7 +367,7 @@ h1.hero-name .last { color: var(--accent); font-weight: 300; }
 .pc-link {
   font-family: var(--mono); font-size: 11px; color: var(--accent);
   text-decoration: none; display: flex; align-items: center; gap: 5px;
-  transition: gap 0.2s;
+  transition: gap 0.2s; white-space: nowrap;
 }
 .pc-link:hover { gap: 9px; }
 .pc-link svg { width: 12px; height: 12px; }
@@ -391,7 +425,7 @@ h1.hero-name .last { color: var(--accent); font-weight: 300; }
   padding: 12px 14px; border-radius: 10px;
   border: 1px solid var(--border); background: var(--card);
   font-size: 13px; color: var(--text2); text-decoration: none;
-  transition: all 0.2s;
+  transition: all 0.2s; word-break: break-all;
 }
 .c-link:hover { color: var(--accent); border-color: rgba(14,165,233,0.4); transform: translateX(4px); }
 .c-link svg { width: 15px; height: 15px; color: var(--accent); flex-shrink: 0; }
@@ -402,7 +436,7 @@ h1.hero-name .last { color: var(--accent); font-weight: 300; }
   background: var(--card); border: 1px solid var(--border);
   border-radius: 8px; padding: 10px 13px;
   font-size: 13px; font-family: inherit; color: var(--text); outline: none;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s; width: 100%;
 }
 .fg input:focus, .fg textarea:focus { border-color: var(--accent); }
 .fg textarea { min-height: 110px; resize: vertical; }
@@ -423,13 +457,96 @@ footer {
 .reveal { opacity:0; transform:translateY(20px); transition:opacity 0.55s ease, transform 0.55s ease; }
 .reveal.visible { opacity:1; transform:translateY(0); }
 
-/* ── RESPONSIVE ── */
-@media(max-width:768px){
-  .hero-grid,.about-grid,.contact-grid,.edu-grid { grid-template-columns:1fr; gap:32px; }
-  .hero-right { display:none; }
-  .nav-links a { display:none; }
-  #about,#experience,#contact { margin:0; border-radius:0; }
-  .ai-hero-banner { flex-direction: column; align-items: flex-start; }
+/* ═══════════════════════════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+   ═══════════════════════════════════════════════════════ */
+
+/* ── TABLET (≤900px) ── */
+@media (max-width: 900px) {
+  .hero-grid { grid-template-columns: 1fr; gap: 0; }
+  .hero-right { display: none; }
+  .about-grid { grid-template-columns: 1fr; gap: 32px; }
+  .about-avatar { max-width: 200px; }
+  .contact-grid { grid-template-columns: 1fr; gap: 36px; }
+}
+
+/* ── MOBILE (≤768px) ── */
+@media (max-width: 768px) {
+  /* Nav */
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+
+  /* Sections */
+  section { padding: 64px 5vw; }
+
+  /* Hero */
+  h1.hero-name { letter-spacing: -2px; }
+  .hero-btns { gap: 8px; }
+  .btn-primary, .btn-ghost { padding: 10px 18px; font-size: 12px; }
+
+  /* About */
+  #about { margin: 0; border-radius: 0; }
+  .about-stats { grid-template-columns: repeat(3,1fr); gap: 10px; }
+  .stat-n { font-size: 22px; }
+
+  /* Skills */
+  .skills-groups { grid-template-columns: 1fr 1fr; }
+
+  /* AI banner */
+  .ai-hero-banner { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .ai-level-badge { align-self: flex-start; }
+
+  /* Projects */
+  .projects-grid { grid-template-columns: 1fr; }
+
+  /* Experience */
+  #experience { margin: 0; border-radius: 0; }
+
+  /* Education */
+  .edu-grid { grid-template-columns: 1fr; }
+
+  /* Contact */
+  #contact { margin: 0 0 24px; border-radius: 0; }
+  .fg-row { grid-template-columns: 1fr; }
+}
+
+/* ── SMALL MOBILE (≤480px) ── */
+@media (max-width: 480px) {
+  section { padding: 56px 4vw; }
+  nav { padding: 0 4vw; }
+
+  /* Hero */
+  h1.hero-name { font-size: clamp(40px, 12vw, 64px); letter-spacing: -2px; }
+  .hero-title { font-size: 12px; }
+  .hero-bio { font-size: 14px; }
+  .hero-btns { flex-direction: column; gap: 8px; }
+  .btn-primary, .btn-ghost { width: 100%; text-align: center; justify-content: center; }
+  .hero-contacts { gap: 6px; }
+  .hc-contact { font-size: 10px; }
+
+  /* Skills */
+  .skills-groups { grid-template-columns: 1fr; }
+
+  /* AI pillars */
+  .ai-pillars { grid-template-columns: 1fr; }
+  .ai-hero-banner { padding: 18px; }
+
+  /* About stats */
+  .about-stats { gap: 8px; }
+  .stat-box { padding: 12px 8px; }
+  .stat-n { font-size: 20px; }
+  .stat-l { font-size: 10px; }
+
+  /* Edu card */
+  .edu-card { flex-direction: column; gap: 12px; }
+  .edu-icon { width: 36px; height: 36px; font-size: 16px; }
+
+  /* Contact */
+  .c-link { font-size: 12px; gap: 8px; }
+  .c-link svg { width: 13px; height: 13px; }
+
+  /* Footer */
+  footer { font-size: 10px; padding: 20px 4vw; }
 }
 </style>
 </head>
@@ -450,7 +567,30 @@ footer {
       <svg id="moon-ic" style="display:none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
     </button>
   </div>
+  <div style="display:flex;gap:8px;align-items:center">
+    <!-- theme btn visible on mobile too -->
+    <button class="theme-btn" id="themeBtnMobile" aria-label="Toggle theme" style="display:none">
+      <svg id="sun-ic-m" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <svg id="moon-ic-m" style="display:none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#about" onclick="closeMobile()">About</a>
+  <a href="#skills" onclick="closeMobile()">Skills</a>
+  <a href="#ai-skills" onclick="closeMobile()">AI Skills</a>
+  <a href="#projects" onclick="closeMobile()">Projects</a>
+  <a href="#experience" onclick="closeMobile()">Experience</a>
+  <a href="#education" onclick="closeMobile()">Education</a>
+  <div class="mobile-nav-divider"></div>
+  <a href="#contact" onclick="closeMobile()">Contact</a>
+  <a href="mailto:ashishgartan25@gmail.com">✉ Email me</a>
+</div>
 
 <!-- HERO -->
 <section id="hero">
@@ -534,55 +674,35 @@ footer {
   <div class="skills-groups">
     <div class="skill-group reveal">
       <div class="sg-head"><div class="sg-icon">⚡</div><div class="sg-name">Languages</div></div>
-      <div class="sg-tags">
-        <span class="tag">Java</span><span class="tag">C++</span><span class="tag">C</span>
-        <span class="tag">JavaScript (ES6+)</span><span class="tag purple">TypeScript</span>
-      </div>
+      <div class="sg-tags"><span class="tag">Java</span><span class="tag">C++</span><span class="tag">C</span><span class="tag">JavaScript (ES6+)</span><span class="tag purple">TypeScript</span></div>
     </div>
     <div class="skill-group reveal">
       <div class="sg-head"><div class="sg-icon">🌐</div><div class="sg-name">Frontend</div></div>
-      <div class="sg-tags">
-        <span class="tag">HTML5</span><span class="tag">CSS3</span>
-        <span class="tag">React.js</span><span class="tag">Next.js</span><span class="tag">Charts.js</span>
-      </div>
+      <div class="sg-tags"><span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">React.js</span><span class="tag">Next.js</span><span class="tag">Charts.js</span></div>
     </div>
     <div class="skill-group reveal">
       <div class="sg-head"><div class="sg-icon">🛠️</div><div class="sg-name">Backend</div></div>
-      <div class="sg-tags">
-        <span class="tag green">Spring Boot</span><span class="tag green">Node.js</span>
-        <span class="tag green">Express.js</span><span class="tag green">REST APIs</span>
-      </div>
+      <div class="sg-tags"><span class="tag green">Spring Boot</span><span class="tag green">Node.js</span><span class="tag green">Express.js</span><span class="tag green">REST APIs</span></div>
     </div>
     <div class="skill-group reveal">
       <div class="sg-head"><div class="sg-icon">🗄️</div><div class="sg-name">Databases</div></div>
-      <div class="sg-tags">
-        <span class="tag amber">SQL</span><span class="tag amber">MongoDB</span>
-        <span class="tag amber">SQLite</span><span class="tag amber">Vector DBs</span>
-      </div>
+      <div class="sg-tags"><span class="tag amber">SQL</span><span class="tag amber">MongoDB</span><span class="tag amber">SQLite</span><span class="tag amber">Vector DBs</span></div>
     </div>
     <div class="skill-group reveal">
       <div class="sg-head"><div class="sg-icon">🔧</div><div class="sg-name">Systems & Networking</div></div>
-      <div class="sg-tags">
-        <span class="tag purple">Socket Programming</span><span class="tag purple">TCP/IP</span>
-        <span class="tag purple">Multi-threading</span><span class="tag purple">Serialization</span>
-        <span class="tag purple">OOP</span><span class="tag purple">DSA</span>
-      </div>
+      <div class="sg-tags"><span class="tag purple">Socket Programming</span><span class="tag purple">TCP/IP</span><span class="tag purple">Multi-threading</span><span class="tag purple">OOP</span><span class="tag purple">DSA</span></div>
     </div>
     <div class="skill-group reveal">
       <div class="sg-head"><div class="sg-icon">🧰</div><div class="sg-name">Tools & Platforms</div></div>
-      <div class="sg-tags">
-        <span class="tag">IntelliJ IDEA</span><span class="tag">VS Code</span>
-        <span class="tag">Postman</span><span class="tag">Linux/Unix</span><span class="tag">Git</span>
-      </div>
+      <div class="sg-tags"><span class="tag">IntelliJ IDEA</span><span class="tag">VS Code</span><span class="tag">Postman</span><span class="tag">Linux/Unix</span><span class="tag">Git</span></div>
     </div>
   </div>
 </section>
 
-<!-- AI SKILLS — NEW SECTION -->
+<!-- AI SKILLS -->
 <section id="ai-skills">
   <p class="s-label reveal">Emerging expertise</p>
   <h2 class="s-title reveal">AI & LLM Engineering</h2>
-
   <div class="ai-hero-banner reveal">
     <div class="ai-banner-icon">🧠</div>
     <div class="ai-banner-text">
@@ -591,87 +711,22 @@ footer {
     </div>
     <div class="ai-level-badge">Early AI Engineer</div>
   </div>
-
   <div class="ai-pillars">
     <div class="ai-pillar foundations reveal">
-      <div class="ap-header">
-        <div class="ap-icon">⚙️</div>
-        <div>
-          <div class="ap-title">LLM Foundations</div>
-          <div class="ap-subtitle">How models actually work</div>
-        </div>
-      </div>
-      <div class="ap-tags">
-        <span class="tag ai">Transformers</span>
-        <span class="tag ai">Self-Attention</span>
-        <span class="tag ai">Tokenization</span>
-        <span class="tag ai">Embeddings</span>
-        <span class="tag ai">Positional Encoding</span>
-        <span class="tag ai">Pretraining</span>
-        <span class="tag ai">SFT</span>
-        <span class="tag ai">RLHF</span>
-        <span class="tag ai">Scaling Laws</span>
-        <span class="tag ai">Context Windows</span>
-        <span class="tag ai">Inference & Decoding</span>
-      </div>
+      <div class="ap-header"><div class="ap-icon">⚙️</div><div><div class="ap-title">LLM Foundations</div><div class="ap-subtitle">How models actually work</div></div></div>
+      <div class="ap-tags"><span class="tag ai">Transformers</span><span class="tag ai">Self-Attention</span><span class="tag ai">Tokenization</span><span class="tag ai">Embeddings</span><span class="tag ai">Positional Encoding</span><span class="tag ai">Pretraining</span><span class="tag ai">SFT</span><span class="tag ai">RLHF</span><span class="tag ai">Scaling Laws</span><span class="tag ai">Context Windows</span><span class="tag ai">Inference & Decoding</span></div>
     </div>
-
     <div class="ai-pillar engineering reveal">
-      <div class="ap-header">
-        <div class="ap-icon">🔗</div>
-        <div>
-          <div class="ap-title">LLM Engineering</div>
-          <div class="ap-subtitle">Building systems with LLMs</div>
-        </div>
-      </div>
-      <div class="ap-tags">
-        <span class="tag purple">RAG Pipelines</span>
-        <span class="tag purple">LangChain</span>
-        <span class="tag purple">AI Agents</span>
-        <span class="tag purple">Tool Use</span>
-        <span class="tag purple">Prompt Engineering</span>
-        <span class="tag purple">Vector Search</span>
-        <span class="tag purple">Chroma DB</span>
-        <span class="tag purple">MongoDB Vector</span>
-        <span class="tag purple">Claude API</span>
-        <span class="tag purple">OpenAI API</span>
-      </div>
+      <div class="ap-header"><div class="ap-icon">🔗</div><div><div class="ap-title">LLM Engineering</div><div class="ap-subtitle">Building systems with LLMs</div></div></div>
+      <div class="ap-tags"><span class="tag purple">RAG Pipelines</span><span class="tag purple">LangChain</span><span class="tag purple">AI Agents</span><span class="tag purple">Tool Use</span><span class="tag purple">Prompt Engineering</span><span class="tag purple">Vector Search</span><span class="tag purple">Chroma DB</span><span class="tag purple">MongoDB Vector</span><span class="tag purple">Claude API</span><span class="tag purple">OpenAI API</span></div>
     </div>
-
     <div class="ai-pillar infra reveal">
-      <div class="ap-header">
-        <div class="ap-icon">🖥️</div>
-        <div>
-          <div class="ap-title">Local AI & Infra</div>
-          <div class="ap-subtitle">Running models locally</div>
-        </div>
-      </div>
-      <div class="ap-tags">
-        <span class="tag green">LM Studio</span>
-        <span class="tag green">Local LLMs</span>
-        <span class="tag green">Qwen Models</span>
-        <span class="tag green">Local Embeddings</span>
-        <span class="tag green">Ollama</span>
-        <span class="tag green">Model Quantization</span>
-      </div>
+      <div class="ap-header"><div class="ap-icon">🖥️</div><div><div class="ap-title">Local AI & Infra</div><div class="ap-subtitle">Running models locally</div></div></div>
+      <div class="ap-tags"><span class="tag green">LM Studio</span><span class="tag green">Local LLMs</span><span class="tag green">Qwen Models</span><span class="tag green">Local Embeddings</span><span class="tag green">Ollama</span><span class="tag green">Model Quantization</span></div>
     </div>
-
     <div class="ai-pillar product reveal">
-      <div class="ap-header">
-        <div class="ap-icon">🚀</div>
-        <div>
-          <div class="ap-title">AI Product Building</div>
-          <div class="ap-subtitle">Full-stack AI apps</div>
-        </div>
-      </div>
-      <div class="ap-tags">
-        <span class="tag amber">AI SaaS Architecture</span>
-        <span class="tag amber">Document Analysis</span>
-        <span class="tag amber">Dependency Graphs</span>
-        <span class="tag amber">Chrome Extensions</span>
-        <span class="tag amber">Microservices + AI</span>
-        <span class="tag amber">Next.js + LLMs</span>
-      </div>
+      <div class="ap-header"><div class="ap-icon">🚀</div><div><div class="ap-title">AI Product Building</div><div class="ap-subtitle">Full-stack AI apps</div></div></div>
+      <div class="ap-tags"><span class="tag amber">AI SaaS Architecture</span><span class="tag amber">Document Analysis</span><span class="tag amber">Dependency Graphs</span><span class="tag amber">Chrome Extensions</span><span class="tag amber">Microservices + AI</span><span class="tag amber">Next.js + LLMs</span></div>
     </div>
   </div>
 </section>
@@ -685,98 +740,50 @@ footer {
       <div class="pc-num">01 / C++ · Systems</div>
       <div class="pc-title">Multi-Client Chat App</div>
       <p class="pc-desc">Multi-threaded client-server chat system in C++ with real-time messaging, file/image sharing, and offline message delivery.</p>
-      <ul class="pc-bullets">
-        <li>Custom communication protocol with serialization/deserialization</li>
-        <li>SQLite for credentials, chat history & offline message queuing</li>
-        <li>Chunked file streaming with message ordering</li>
-        <li>Socket programming, thread sync & system stability</li>
-      </ul>
+      <ul class="pc-bullets"><li>Custom communication protocol with serialization/deserialization</li><li>SQLite for credentials, chat history & offline message queuing</li><li>Chunked file streaming with message ordering</li></ul>
       <div class="pc-footer">
-        <div style="display:flex;flex-wrap:wrap;gap:5px">
-          <span class="tag purple">C++</span><span class="tag purple">Sockets</span>
-          <span class="tag purple">Threads</span><span class="tag amber">SQLite</span>
-          <span class="tag">Linux</span>
-        </div>
-        <a href="https://github.com/ashishgartan/chatservercpp" target="_blank" class="pc-link">
-          GitHub <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
+        <div style="display:flex;flex-wrap:wrap;gap:5px"><span class="tag purple">C++</span><span class="tag purple">Sockets</span><span class="tag purple">Threads</span><span class="tag amber">SQLite</span><span class="tag">Linux</span></div>
+        <a href="https://github.com/ashishgartan/chatservercpp" target="_blank" class="pc-link">GitHub <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
       </div>
     </div>
     <div class="project-card reveal">
       <div class="pc-num">02 / JavaScript · Full-stack</div>
       <div class="pc-title">E-commerce Web App</div>
-      <p class="pc-desc">Functional e-commerce platform with product browsing, cart management, and order placement — connected frontend to backend seamlessly.</p>
-      <ul class="pc-bullets">
-        <li>RESTful APIs with user authentication</li>
-        <li>MongoDB for product, user, and order storage</li>
-        <li>Responsive UI with React.js + Charts.js</li>
-      </ul>
+      <p class="pc-desc">Functional e-commerce platform with product browsing, cart management, and order placement.</p>
+      <ul class="pc-bullets"><li>RESTful APIs with user authentication</li><li>MongoDB for product, user, and order storage</li><li>Responsive UI with React.js + Charts.js</li></ul>
       <div class="pc-footer">
-        <div style="display:flex;flex-wrap:wrap;gap:5px">
-          <span class="tag green">Node.js</span><span class="tag green">Express</span>
-          <span class="tag amber">MongoDB</span><span class="tag">React.js</span>
-          <span class="tag">Charts.js</span>
-        </div>
-        <a href="https://github.com/ashishgartan/e-commerce-js" target="_blank" class="pc-link">
-          GitHub <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
+        <div style="display:flex;flex-wrap:wrap;gap:5px"><span class="tag green">Node.js</span><span class="tag green">Express</span><span class="tag amber">MongoDB</span><span class="tag">React.js</span></div>
+        <a href="https://github.com/ashishgartan/e-commerce-js" target="_blank" class="pc-link">GitHub <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
       </div>
     </div>
     <div class="project-card reveal">
       <div class="pc-num">03 / C · Unix Systems</div>
       <div class="pc-title">Snail Shell</div>
-      <p class="pc-desc">A custom Unix shell (like bash/zsh) supporting built-in commands, I/O redirection, and background processes.</p>
-      <ul class="pc-bullets">
-        <li>Process creation, signal handling, input parsing</li>
-        <li>Built-in commands: cd, clear, and more</li>
-        <li>Deep dive into Unix process management & system calls</li>
-      </ul>
+      <p class="pc-desc">A custom Unix shell supporting built-in commands, I/O redirection, and background processes.</p>
+      <ul class="pc-bullets"><li>Process creation, signal handling, input parsing</li><li>Built-in commands: cd, clear, and more</li><li>Deep dive into Unix process management & system calls</li></ul>
       <div class="pc-footer">
-        <div style="display:flex;flex-wrap:wrap;gap:5px">
-          <span class="tag">C</span><span class="tag">Linux</span>
-          <span class="tag purple">POSIX</span><span class="tag purple">System Calls</span>
-        </div>
-        <a href="https://github.com/ashishgartan/snailshell" target="_blank" class="pc-link">
-          GitHub <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
+        <div style="display:flex;flex-wrap:wrap;gap:5px"><span class="tag">C</span><span class="tag">Linux</span><span class="tag purple">POSIX</span><span class="tag purple">System Calls</span></div>
+        <a href="https://github.com/ashishgartan/snailshell" target="_blank" class="pc-link">GitHub <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
       </div>
     </div>
     <div class="project-card reveal">
       <div class="pc-num">04 / AI-Powered · Web Tool</div>
       <div class="pc-title">LMS Question Reviewer</div>
-      <p class="pc-desc">AI-powered Chrome extension and web tool to audit, fix bugs, and generate test cases for coding questions on LMS platforms.</p>
-      <ul class="pc-bullets">
-        <li>Floating panel injected directly on any LMS page</li>
-        <li>Auto-reads question text, detects bugs, fixes formatting</li>
-        <li>Generates complete test cases using Claude AI</li>
-      </ul>
+      <p class="pc-desc">AI-powered Chrome extension to audit, fix bugs, and generate test cases for coding questions on LMS platforms.</p>
+      <ul class="pc-bullets"><li>Floating panel injected directly on any LMS page</li><li>Auto-reads question text, detects bugs, fixes formatting</li><li>Generates complete test cases using Claude AI</li></ul>
       <div class="pc-footer">
-        <div style="display:flex;flex-wrap:wrap;gap:5px">
-          <span class="tag">Chrome Extension</span>
-          <span class="tag purple">Claude API</span><span class="tag green">Node.js</span>
-        </div>
-        <a href="#" class="pc-link">
-          Demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
+        <div style="display:flex;flex-wrap:wrap;gap:5px"><span class="tag">Chrome Extension</span><span class="tag purple">Claude API</span><span class="tag green">Node.js</span></div>
+        <a href="#" class="pc-link">Demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
       </div>
     </div>
     <div class="project-card reveal">
       <div class="pc-num">05 / Dev Tool · D3.js</div>
       <div class="pc-title">DepGraph</div>
       <p class="pc-desc">Upload any project ZIP or folder and instantly visualize all file dependencies as an interactive graph — 5 view modes, 40+ languages.</p>
-      <ul class="pc-bullets">
-        <li>Force graph, Sunburst, Matrix, Treemap & Arc views</li>
-        <li>Detects imports, exports & circular dependencies</li>
-        <li>Smart @/ alias resolution for Next.js projects</li>
-      </ul>
+      <ul class="pc-bullets"><li>Force graph, Sunburst, Matrix, Treemap & Arc views</li><li>Detects imports, exports & circular dependencies</li><li>Smart @/ alias resolution for Next.js projects</li></ul>
       <div class="pc-footer">
-        <div style="display:flex;flex-wrap:wrap;gap:5px">
-          <span class="tag">HTML/JS</span><span class="tag amber">D3.js</span>
-          <span class="tag">JSZip</span>
-        </div>
-        <a href="#" class="pc-link">
-          Demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
+        <div style="display:flex;flex-wrap:wrap;gap:5px"><span class="tag">HTML/JS</span><span class="tag amber">D3.js</span><span class="tag">JSZip</span></div>
+        <a href="#" class="pc-link">Demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
       </div>
     </div>
   </div>
@@ -792,39 +799,21 @@ footer {
       <div class="tl-date">September 2024 — Present</div>
       <div class="tl-role">IT Trainer</div>
       <div class="tl-company">CodeQuotient · Mohali, Punjab</div>
-      <div class="tl-desc">
-        <ul>
-          <li>Conduct technical training sessions on Java, C++, DSA, and Full Stack Web Development</li>
-          <li>Mentor students in real-world coding assignments, backend development, and system design</li>
-          <li>Conduct technical evaluations and prepare learners for industry-level coding interviews</li>
-        </ul>
-      </div>
+      <div class="tl-desc"><ul><li>Conduct technical training sessions on Java, C++, DSA, and Full Stack Web Development</li><li>Mentor students in real-world coding assignments, backend development, and system design</li><li>Conduct technical evaluations and prepare learners for industry-level coding interviews</li></ul></div>
     </div>
     <div class="tl-item reveal">
       <div class="tl-dot"></div>
       <div class="tl-date">January 2024 — August 2024</div>
       <div class="tl-role">Intern IT Trainer</div>
       <div class="tl-company">CodeQuotient · Mohali, Punjab</div>
-      <div class="tl-desc">
-        <ul>
-          <li>Assisted senior trainers in delivering backend and frontend sessions</li>
-          <li>Supported project-based learning modules focused on Java, Node.js, and Database Management</li>
-          <li>Provided guidance on algorithms, problem-solving techniques, and coding best practices</li>
-        </ul>
-      </div>
+      <div class="tl-desc"><ul><li>Assisted senior trainers in delivering backend and frontend sessions</li><li>Supported project-based learning modules focused on Java, Node.js, and Database Management</li><li>Provided guidance on algorithms, problem-solving techniques, and coding best practices</li></ul></div>
     </div>
     <div class="tl-item reveal">
       <div class="tl-dot"></div>
       <div class="tl-date">July 2023 — August 2023</div>
       <div class="tl-role">Summer Intern</div>
       <div class="tl-company">CodeQuotient · Mohali, Punjab</div>
-      <div class="tl-desc">
-        <ul>
-          <li>Gained practical exposure to full-stack development projects</li>
-          <li>Contributed to backend development with Node.js and frontend tasks using HTML, CSS, and JavaScript</li>
-          <li>Strengthened practical understanding of database systems and REST APIs</li>
-        </ul>
-      </div>
+      <div class="tl-desc"><ul><li>Gained practical exposure to full-stack development projects</li><li>Contributed to backend development with Node.js and frontend tasks using HTML, CSS, and JavaScript</li><li>Strengthened practical understanding of database systems and REST APIs</li></ul></div>
     </div>
   </div>
 </section>
@@ -836,21 +825,11 @@ footer {
   <div class="edu-grid">
     <div class="edu-card reveal">
       <div class="edu-icon">🎓</div>
-      <div>
-        <div class="edu-deg">Master of Computer Applications (MCA)</div>
-        <div class="edu-uni">Kurukshetra University, Kurukshetra</div>
-        <div class="edu-year">September 2022 — June 2024</div>
-        <div class="edu-grade">⭐ CGPA: 8.35</div>
-      </div>
+      <div><div class="edu-deg">Master of Computer Applications (MCA)</div><div class="edu-uni">Kurukshetra University, Kurukshetra</div><div class="edu-year">September 2022 — June 2024</div><div class="edu-grade">⭐ CGPA: 8.35</div></div>
     </div>
     <div class="edu-card reveal">
       <div class="edu-icon">📚</div>
-      <div>
-        <div class="edu-deg">Bachelor of Science (B.Sc.)</div>
-        <div class="edu-uni">Kurukshetra University, Kurukshetra</div>
-        <div class="edu-year">September 2019 — July 2022</div>
-        <div class="edu-grade">⭐ Score: 81.75%</div>
-      </div>
+      <div><div class="edu-deg">Bachelor of Science (B.Sc.)</div><div class="edu-uni">Kurukshetra University, Kurukshetra</div><div class="edu-year">September 2019 — July 2022</div><div class="edu-grade">⭐ Score: 81.75%</div></div>
     </div>
   </div>
 </section>
@@ -863,22 +842,10 @@ footer {
       <h2 class="s-title reveal">Let's connect</h2>
       <p class="reveal" style="font-size:14px;color:var(--text2);margin-bottom:4px">Open to software development and AI engineering roles, collaborations, or just a chat about systems and code.</p>
       <div class="contact-links reveal">
-        <a href="mailto:ashishgartan25@gmail.com" class="c-link">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-          ashishgartan25@gmail.com
-        </a>
-        <a href="tel:+919996247951" class="c-link">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          +91 9996247951
-        </a>
-        <a href="https://github.com/ashishgartan" target="_blank" class="c-link">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-          github.com/ashishgartan
-        </a>
-        <div class="c-link">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          Bastara, Gharaunda, Karnal, Haryana
-        </div>
+        <a href="mailto:ashishgartan25@gmail.com" class="c-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>ashishgartan25@gmail.com</a>
+        <a href="tel:+919996247951" class="c-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>+91 9996247951</a>
+        <a href="https://github.com/ashishgartan" target="_blank" class="c-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>github.com/ashishgartan</a>
+        <div class="c-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Bastara, Gharaunda, Karnal, Haryana</div>
       </div>
     </div>
     <form class="contact-form reveal" onsubmit="handleForm(event)">
@@ -899,34 +866,64 @@ footer {
 </footer>
 
 <script>
-const btn = document.getElementById('themeBtn');
-const sunIc = document.getElementById('sun-ic');
-const moonIc = document.getElementById('moon-ic');
-const root = document.documentElement;
-const saved = localStorage.getItem('ag-theme') || 'light';
-root.setAttribute('data-theme', saved);
-sunIc.style.display = saved === 'dark' ? 'block' : 'none';
-moonIc.style.display = saved === 'light' ? 'block' : 'none';
-btn.addEventListener('click', () => {
-  const cur = root.getAttribute('data-theme');
-  const nxt = cur === 'light' ? 'dark' : 'light';
-  root.setAttribute('data-theme', nxt);
-  localStorage.setItem('ag-theme', nxt);
-  sunIc.style.display = nxt === 'dark' ? 'block' : 'none';
-  moonIc.style.display = nxt === 'light' ? 'block' : 'none';
+// ── THEME ──
+function applyTheme(t) {
+  document.documentElement.setAttribute('data-theme', t);
+  localStorage.setItem('ag-theme', t);
+  const isDark = t === 'dark';
+  document.getElementById('sun-ic').style.display   = isDark ? 'block' : 'none';
+  document.getElementById('moon-ic').style.display  = isDark ? 'none'  : 'block';
+  document.getElementById('sun-ic-m').style.display = isDark ? 'block' : 'none';
+  document.getElementById('moon-ic-m').style.display= isDark ? 'none'  : 'block';
+}
+applyTheme(localStorage.getItem('ag-theme') || 'light');
+document.getElementById('themeBtn').addEventListener('click', () => {
+  applyTheme(document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
+});
+document.getElementById('themeBtnMobile').addEventListener('click', () => {
+  applyTheme(document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
 });
 
+// ── HAMBURGER ──
+const hamburger = document.getElementById('hamburger');
+const mobileNav = document.getElementById('mobileNav');
+const mobilThemeBtn = document.getElementById('themeBtnMobile');
+
+function closeMobile() {
+  hamburger.classList.remove('open');
+  mobileNav.classList.remove('open');
+}
+
+hamburger.addEventListener('click', (e) => {
+  e.stopPropagation();
+  hamburger.classList.toggle('open');
+  mobileNav.classList.toggle('open');
+});
+document.addEventListener('click', (e) => {
+  if (!hamburger.contains(e.target) && !mobileNav.contains(e.target)) closeMobile();
+});
+
+// Show mobile theme button at ≤768px
+function checkMobileTheme() {
+  mobilThemeBtn.style.display = window.innerWidth <= 768 ? 'flex' : 'none';
+}
+checkMobileTheme();
+window.addEventListener('resize', checkMobileTheme);
+
+// ── SCROLL REVEAL ──
 const obs = new IntersectionObserver(entries => {
   entries.forEach((e, i) => {
     if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 55);
   });
-}, { threshold: 0.1 });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
+// ── FORM ──
 function handleForm(e) {
   e.preventDefault();
   document.getElementById('form-ok').style.display = 'block';
   e.target.reset();
+  setTimeout(() => document.getElementById('form-ok').style.display = 'none', 4000);
 }
 </script>
 </body>
